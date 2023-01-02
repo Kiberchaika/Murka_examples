@@ -1,7 +1,7 @@
 /*
   ==============================================================================
 
-    This file was auto-generated!
+	This file was auto-generated!
 
   ==============================================================================
 */
@@ -19,10 +19,10 @@ MainComponent::MainComponent()
 	OpenGLPixelFormat pixelFormat;
 	pixelFormat.multisamplingLevel = 8;
 	openGLContext.setPixelFormat(pixelFormat);
-	
+
 	// Make sure you set the size of the component after
-    // you add any child components.
-    setSize (800, 600);
+	// you add any child components.
+	setSize(800, 600);
 }
 
 MainComponent::~MainComponent()
@@ -81,14 +81,15 @@ void MainComponent::initialise()
 	bool shaderLoaded = murShader.load(vertexShader, fragmentShader);
 
 	murImage.setOpenGLContext(&openGLContext);
-	murImage.load("D:/Developer/Crossplatform/JUCE/JUCE_MURKA_TEST/Resources/lenin.jpg");
+	murImage.loadFromRawData(BinaryData::lenin_jpg, BinaryData::lenin_jpgSize);
+
+	m.setFontFromRawData("Roboto-Regular.ttf", BinaryData::CamingoCodeRegular_ttf, BinaryData::CamingoCodeRegular_ttfSize, 12);
 
 	// murka
 	m.setAppComponent(this);
 	m.setOpenGLContext(&openGLContext);
 	m.setup();
 
-	m.setResourcesPath("D:/Developer/Crossplatform/JUCE/JUCE_MURKA_TEST/Resources");
 	m.shape = { 0, 0, getWidth(), getHeight() };
 	m.setScreenScale((float)openGLContext.getRenderingScale());
 	m.setupScreen();
@@ -100,7 +101,7 @@ void MainComponent::reload()
 }
 
 void MainComponent::shutdown()
-{ 
+{
 	// Free any GL objects created for rendering here.
 }
 
@@ -109,10 +110,10 @@ void MainComponent::render()
 	m.startFrame();
 	m.setScreenScale((float)openGLContext.getRenderingScale());
 
-   // This clears the context with a black background.
-	//OpenGLHelpers::clear (Colours::black);
+	// This clears the context with a black background.
+	 //OpenGLHelpers::clear (Colours::black);
 
-	// TODO
+	 // TODO
 	m.clear(20);
 	m.setColor(255);
 
@@ -123,16 +124,16 @@ void MainComponent::render()
 	m.setColor(255);
 
 	//m.scale(10, 10, 10);
-	m.draw<murka::Label>({ 50, 100, 150, 30 }).text("112344");
-	m.commitDeferredView();
-	 
-	auto button = m.draw<murka::Button>({ 50, 150, 150, 75 }).text("Dynamic button 1");
-	m.commitDeferredView();
+	m.draw<murka::Label>({ 50, 100, 150, 30 }).text("112344").commit();
+
+	auto& button = m.draw<murka::Button>({ 50, 150, 150, 75 });
+	button.text("Dynamic button 1");
+	button.commit();
 
 	if (button.pressed) {
 		std::cout << "woah this works" << std::endl;
 	}
-	 
+
 	m.bindShader(&murShader);
 	m.setColor(0, 255, 0);
 	m.drawRectangle(10, 10, 100, 100);
@@ -143,8 +144,6 @@ void MainComponent::render()
 
 	m.setColor(220, 0, 220, 255);
 	m.drawLine(1, 1, 100, 100);
-	// Commit deferred view calls the base class draw() instead of derived one. Fix this somehow.
-   // m.currentContext.commitDeferredView();
 
 	/*
 	Label::purr(m, { 50, 50, 200, 50 })
@@ -153,11 +152,11 @@ void MainComponent::render()
 	Label().draw3(m, { 50, 50, 200, 50 });
 //    commit();
 	 */
-	m.setColor(255); 
-	m.drawImage(murImage , 200, 200, 0, 100, 100);
-	 
+	m.setColor(255);
+	m.drawImage(murImage, 200, 200, 0, 100, 100);
+
 	m.viewport(100, 200, 100, 100);
-	
+
 
 	//MurFbo fbo; 
 
@@ -184,7 +183,7 @@ void MainComponent::render()
 	//murkaRender.pushView();
 	//murkaRender.viewport(0, 0, 100, 100);
 	//murkaRender.popView();
-	
+
 	//murkaRender.draw(murImage, 0, 122, 0, 100, 100);
 	//murkaRender.drawRectangle(0, 22, 100, 100);
 
@@ -194,37 +193,37 @@ void MainComponent::render()
 	/*
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glBegin(GL_POINTS);
-    glVertex3f(0.0, 0.5, 0.0);//drawn white or default color first loop and green all other loops
-    glColor3f(1.0, 0.5, 0.0);//set red 100% green 50% blue 0%
-    glVertex3f(0.1, 0.5, 0.0);//drawn orange
-    glVertex3f(0.2, 0.5, 0.0);//drawn orange
-    glColor3f(1.0, 0.0, 0.0);//set red 100% green 0% blue 0%
-    glVertex3f(0.3, 0.5, 0.0);//drawn red
-    glEnd();
-    glBegin(GL_POINTS);
-    glVertex3f(0.4, 0.5, 0.0);//drawn red
-    glColor3f(0.0, 1.0, 0.0);//set red 0% green 100% blue 0%
-    glVertex3f(0.5, 0.5, 0.0);//drawn green
-    glVertex3f(0.6, 0.5, 0.0);//drawn green
-    glEnd();
-    
+	glBegin(GL_POINTS);
+	glVertex3f(0.0, 0.5, 0.0);//drawn white or default color first loop and green all other loops
+	glColor3f(1.0, 0.5, 0.0);//set red 100% green 50% blue 0%
+	glVertex3f(0.1, 0.5, 0.0);//drawn orange
+	glVertex3f(0.2, 0.5, 0.0);//drawn orange
+	glColor3f(1.0, 0.0, 0.0);//set red 100% green 0% blue 0%
+	glVertex3f(0.3, 0.5, 0.0);//drawn red
+	glEnd();
+	glBegin(GL_POINTS);
+	glVertex3f(0.4, 0.5, 0.0);//drawn red
+	glColor3f(0.0, 1.0, 0.0);//set red 0% green 100% blue 0%
+	glVertex3f(0.5, 0.5, 0.0);//drawn green
+	glVertex3f(0.6, 0.5, 0.0);//drawn green
+	glEnd();
+
 	// draw
 	*/
-} 
+}
 
 //==============================================================================
-void MainComponent::paint (Graphics& g)
+void MainComponent::paint(Graphics& g)
 {
-    // You can add your component specific drawing code here!
-    // This will draw over the top of the openGL background.
+	// You can add your component specific drawing code here!
+	// This will draw over the top of the openGL background.
 }
 
 void MainComponent::resized()
 {
-    // This is called when the MainComponent is resized.
-    // If you add any child components, this is where you should
-    // update their positions.
+	// This is called when the MainComponent is resized.
+	// If you add any child components, this is where you should
+	// update their positions.
 }
