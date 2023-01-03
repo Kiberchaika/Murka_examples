@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="CTiG9i" name="shader_example" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="FMDyeF" name="shader_example">
+    <GROUP id="{8B55CAF3-5C6B-F03E-F191-C8376F0B83BB}" name="Source">
+      <FILE id="dyAszg" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="Fg5xW4" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="aCUlJV" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="gSkyAb" name="RoundedButtonWithGradient.h" compile="0" resource="0"
+            file="Source/RoundedButtonWithGradient.h"/>
+    </GROUP>
+    <GROUP id="{440D3EE6-53C3-BC67-2569-A4E9E53F4921}" name="Resources">
+      <FILE id="lT0DWd" name="CamingoCode-Regular.ttf" compile="0" resource="1"
+            file="Resources/CamingoCode-Regular.ttf"/>
+      <FILE id="KrQ7IZ" name="Roboto-Regular.ttf" compile="0" resource="1"
+            file="Resources/Roboto-Regular.ttf"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2022 targetFolder="Builds/VisualStudio2022" extraDefs="&#10;MURKA_JUCE JUCE_OPENGL3">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="shader_example"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="shader_example"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_murka" path="../../../JUCE/JUCE_Modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE/JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE/JUCE_7.0.3/modules"/>
+      </MODULEPATHS>
+    </VS2022>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_murka" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>
