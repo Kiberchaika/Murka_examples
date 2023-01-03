@@ -75,13 +75,13 @@ public:
 
         if ((m.currentContext.mouseDownPressed[0]) && (m.currentContext.isHovered())) {
             pressed = true;
-            lastTimeClicked = m.currentContext.getRunningTime();
+            lastTimeClicked = m.getElapsedTime();
         }
         else pressed = false;
 
-        auto font = m.currentContext.getCurrentFont();
+        auto font = m.getCurrentFont();
 
-        float pushed = 0.2 - (m.currentContext.getRunningTime() - lastTimeClicked);
+        float pushed = 0.2 - (m.getElapsedTime() - lastTimeClicked);
         if (pushed < 0) pushed = 0;
         pushed /= 0.2;
 
@@ -96,7 +96,7 @@ public:
         murShader.setUniform2f("resolution", m.currentContext.getSize().x * m.getScreenScale(), m.currentContext.getSize().y * m.getScreenScale());
         murShader.setUniform1f("cornerRadius", 20 * m.getScreenScale());
         murShader.setUniform1f("scale", (1 - pushed));
-        murShader.setUniform1f("time", m.currentContext.getRunningTime());
+        murShader.setUniform1f("time", m.getElapsedTime());
         m.clear(0);
         m.setColor(255);
         m.drawRectangle(0, 0, m.currentContext.getSize().x, m.currentContext.getSize().y);
