@@ -12,180 +12,102 @@
 MainComponent::MainComponent()
 {
 	// Make sure you set the size of the component after
-	 // you add any child components.
-	openGLContext.setOpenGLVersionRequired(OpenGLContext::OpenGLVersion::openGL3_2);
-	openGLContext.setMultisamplingEnabled(true);
-
-	OpenGLPixelFormat pixelFormat;
-	pixelFormat.multisamplingLevel = 8;
-	openGLContext.setPixelFormat(pixelFormat);
-
-	// Make sure you set the size of the component after
 	// you add any child components.
 	setSize(800, 600);
 }
 
 MainComponent::~MainComponent()
 {
-	// This shuts down the GL system and stops the rendering calls.
-	openGLContext.deactivateCurrentContext();
-	openGLContext.detach();
-
 }
 
 //==============================================================================
 void MainComponent::initialise()
-{
-	/*
-	murkaRender.setAppComponent(this);
-	murkaRender.setOpenGLContext(&openGLContext);
-	murkaRender.setup();
+{ 
+	JuceMurkaBaseComponent::initialise();
 
-	murkaRender.setupScreen();
-
-	*/
-
-	std::string vertexShader =
-		"varying vec2 vUv;\n"
-		"varying vec4 vCol;\n"
-		"uniform mat4 matrixModel;\n"
-		"uniform mat4 matrixView;\n"
-		"uniform mat4 matrixProj;\n"
-		"uniform vec4 color;\n"
-		"attribute vec3 position;\n"
-		"attribute vec2 uv;\n"
-		"attribute vec4 col;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		"    vUv = uv;"
-		"    vCol = col;"
-		"    vec4 pos = matrixProj * matrixView * matrixModel * vec4(position, 1.0) ; \n"
-		"    gl_Position =  pos; \n"
-		"}\n";
-
-	std::string fragmentShader =
-		"varying vec2 vUv;\n"
-		"varying vec4 vCol;\n"
-		"uniform sampler2D mainTexture;\n"
-		"uniform vec4 color;\n"
-		//"uniform bool useTexture;\n"
-		"\n"
-		"void main()\n"
-		"{\n"
-		//"    gl_FragColor = color * vCol * (useTexture ? texture(mainTexture, vUv) : vec4 (1.0, 1.0, 1.0, 1.0));\n"
-		"    gl_FragColor = vec4 (vUv.x, vUv.y, 1.0, 1.0);\n"
-		"}\n";
-
-	murShader.setOpenGLContext(&openGLContext);
-	bool shaderLoaded = murShader.load(vertexShader, fragmentShader);
+	m.setFontFromRawData("Roboto-Regular.ttf", BinaryData::CamingoCodeRegular_ttf, BinaryData::CamingoCodeRegular_ttfSize, 12);
 
 	murImage.setOpenGLContext(&openGLContext);
 	murImage.loadFromRawData(BinaryData::lenin_jpg, BinaryData::lenin_jpgSize);
 
-	m.setFontFromRawData("Roboto-Regular.ttf", BinaryData::CamingoCodeRegular_ttf, BinaryData::CamingoCodeRegular_ttfSize, 12);
-
-	// murka
-	m.setAppComponent(this);
-	m.setOpenGLContext(&openGLContext);
-	m.setup();
-
-	m.shape = { 0, 0, getWidth(), getHeight() };
-	m.setScreenScale((float)openGLContext.getRenderingScale());
-	m.setupScreen();
-}
-
-void MainComponent::reload()
-{
-	// setup();
-}
-
-void MainComponent::shutdown()
-{
-	// Free any GL objects created for rendering here.
+	murFbo.setOpenGLContext(&openGLContext);
 }
 
 void MainComponent::render()
 {
-	m.startFrame();
+	int mouseX = m.eventState.mousePosition.x;
+	int mouseY = m.eventState.mousePosition.y;
+
 	m.setScreenScale((float)openGLContext.getRenderingScale());
-
-	// This clears the context with a black background.
-	 //OpenGLHelpers::clear (Colours::black);
-
-	 // TODO
-	m.clear(20);
-	m.setColor(255);
-
-	m.setFont("Roboto-Regular.ttf", 12);
-
 	m.begin();
 
-	m.setColor(255);
-
-	//m.scale(10, 10, 10);
-	m.draw<murka::Label>({ 50, 100, 150, 30 }).text("112344").commit();
-
-	auto& button = m.draw<murka::Button>({ 50, 150, 150, 75 });
-	button.text("Dynamic button 1");
-	button.commit();
-
-	if (button.pressed) {
-		std::cout << "woah this works" << std::endl;
+	if (!murFbo.isAllocated()) {
+		murFbo.allocate(400 * m.getScreenScale(), 400 * m.getScreenScale());
 	}
 
-	m.bindShader(&murShader);
-	m.setColor(0, 255, 0);
-	m.drawRectangle(10, 10, 100, 100);
-	m.unbindShader();
+	m.clear(20);
 
-
-	m.getCurrentFont()->drawString("HELLO!", 200, 100);
-
-	m.setColor(220, 0, 220, 255);
-	m.drawLine(1, 1, 100, 100);
-
-	/*
-	Label::purr(m, { 50, 50, 200, 50 })
-		.label = "yo";
-
-	Label().draw3(m, { 50, 50, 200, 50 });
-//    commit();
-	 */
+	m.beginFbo(murFbo);
 	m.setColor(255);
-	m.drawImage(murImage, 200, 200, 0, 100, 100);
+	m.drawImage(murImage, 0, 0, 0, 400, 400);
+	m.endFbo(murFbo);
 
-	m.viewport(100, 200, 100, 100);
+	m.setColor(255);
+	m.setFont("Roboto-Regular.ttf", 12);
+	m.setColor(0, 0, 255, 255);
+	m.drawRectangle(0, 0, 1000, 1000);
+	m.setColor(255, 255);
 
 
-	//MurFbo fbo; 
+	{
+		m.pushMatrix();
+		m.translate(20, 20, 0);
 
-	m.drawImage(murImage, 0, 50, 0, 150, 150);
+		m.getCurrentFont()->drawString("HELLO!", 0, 0);
+
+		auto& button = m.draw<murka::Button>({ 0, 50, 150, 75 });
+		button.text("Button");
+		button.commit();
+
+		if (button.pressed) {
+			std::cout << "woah this works" << std::endl;
+		}
+
+		m.popMatrix();
+	}
+
+	{
+		m.pushMatrix();
+		m.translate(400, 20, 0);
+
+		m.setColor(255);
+		m.drawImage(murImage, 0, 0, 0, 100, 100);
+
+		m.popMatrix();
+	}
 
 	m.end();
 
-
-	//m.setColor(255, 0, 0, 255);
-
+	//
 
 	/*
-	murkaRender.translate(100, 100, 0);
-	murkaRender.rotateZRad(degreesToRadians(-35.0f + i));
-	murkaRender.scale(1, 3, 1);
-	murkaRender.pushMatrix();
-	murkaRender.translate(-10, -50, 0);
-	murkaRender.popMatrix();
+	m.translate(100, 100, 0);
+	m.rotateZRad(degreesToRadians(-35.0f + i));
+	m.scale(1, 3, 1);
+	m.pushMatrix();
+	m.translate(-10, -50, 0);
+	m.popMatrix();
 	*/
-	//murkaRender.drawRectangle(0, 22, 100, 100); // desktopScale * getWidth()/2, desktopScale * getHeight()/2
-	//murkaRender.drawCircle(100, 100, 100);
+	//m.drawRectangle(0, 22, 100, 100); // desktopScale * getWidth()/2, desktopScale * getHeight()/2
+	//m.drawCircle(100, 100, 100);
 
-	//murkaRender.viewport(20, 20, 100, 100);
-	//murkaRender.pushView();
-	//murkaRender.viewport(0, 0, 100, 100);
-	//murkaRender.popView();
+	//m.viewport(20, 20, 100, 100);
+	//m.pushView();
+	//m.viewport(0, 0, 100, 100);
+	//m.popView();
 
-	//murkaRender.draw(murImage, 0, 122, 0, 100, 100);
-	//murkaRender.drawRectangle(0, 22, 100, 100);
+	//m.draw(murImage, 0, 122, 0, 100, 100);
+	//m.drawRectangle(0, 22, 100, 100);
 
 
 	//m.drawRectangle(0, 22, 100, 100);
