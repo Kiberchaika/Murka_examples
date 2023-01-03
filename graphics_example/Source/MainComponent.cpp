@@ -78,10 +78,17 @@ void MainComponent::render()
 
 	{
 		m.pushMatrix();
-		m.translate(400, 20, 0);
+		m.translate(100, 20, 0);
 
 		m.setColor(255);
-		m.drawImage(murImage, 0, 0, 0, 100, 100);
+		m.bind(murFbo, 0);
+		m.drawRectangle(0, 0, 100, 100);
+		m.unbind(murFbo, 0);
+
+		m.translate(300, 20, 0);
+
+		m.setColor(255);
+		m.drawImage(murImage, 0, 0, 100, 100);
 
 		m.popMatrix();
 	}
