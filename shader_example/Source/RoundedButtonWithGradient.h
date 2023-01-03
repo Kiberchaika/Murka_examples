@@ -9,7 +9,14 @@ namespace murka {
 
 class RoundedButtonWithGradient : public View<RoundedButtonWithGradient> {
 public:
-    void init(Murka& m) {
+
+    ~RoundedButtonWithGradient() {
+        if (murShader.isLoaded()) {
+            murShader.unload();
+        } 
+    }
+
+    void setupShader(Murka& m) {
 
         std::string fragmentShaderCustom = R"(
 		    varying vec2 vUv;
@@ -86,7 +93,7 @@ public:
         pushed /= 0.2;
 
         if (!murShader.isLoaded()) {
-            init(m);
+            setupShader(m);
         }
 
         m.pushStyle();
