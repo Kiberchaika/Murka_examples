@@ -104,7 +104,6 @@ public:
         murShader.setUniform1f("cornerRadius", 20 * m.getScreenScale());
         murShader.setUniform1f("scale", (1 - pushed));
         murShader.setUniform1f("time", m.getElapsedTime());
-        m.clear(0);
         m.setColor(255);
         m.drawRectangle(0, 0, m.currentContext.getSize().x, m.currentContext.getSize().y);
         m.unbindShader();
