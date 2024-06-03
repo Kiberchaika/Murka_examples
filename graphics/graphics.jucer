@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT id="GQxEdF" name="graphics" projectType="guiapp" useAppConfig="0"
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+  <MAINGROUP id="euJcZS" name="graphics">
+    <GROUP id="{DC9567B6-1632-5201-9F26-108F33CEDFFF}" name="Source">
+      <FILE id="vU3OfK" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="hCZtQs" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+    </GROUP>
+    <GROUP id="{76BA5603-9306-EA23-DA6E-91160811664D}" name="Resources">
+      <FILE id="hSCLQo" name="cat.png" compile="0" resource="1" file="Resources/cat.png"/>
+      <FILE id="RlY7Ew" name="Inter-Bold.ttf" compile="0" resource="1" file="Resources/Inter-Bold.ttf"/>
+      <FILE id="zv8c8R" name="Inter-ExtraBold.ttf" compile="0" resource="1"
+            file="Resources/Inter-ExtraBold.ttf"/>
+      <FILE id="UVnXnt" name="Inter-ExtraLight.ttf" compile="0" resource="1"
+            file="Resources/Inter-ExtraLight.ttf"/>
+      <FILE id="ywN1yv" name="Inter-Light.ttf" compile="0" resource="1" file="Resources/Inter-Light.ttf"/>
+      <FILE id="YWb06g" name="Inter-Medium.ttf" compile="0" resource="1"
+            file="Resources/Inter-Medium.ttf"/>
+      <FILE id="S6ak5Q" name="Inter-Regular.ttf" compile="0" resource="1"
+            file="Resources/Inter-Regular.ttf"/>
+      <FILE id="npQt39" name="Inter-SemiBold.ttf" compile="0" resource="1"
+            file="Resources/Inter-SemiBold.ttf"/>
+      <FILE id="fJEEKR" name="Inter-Thin.ttf" compile="0" resource="1" file="Resources/Inter-Thin.ttf"/>
+    </GROUP>
+  </MAINGROUP>
+  <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
+  <EXPORTFORMATS>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="graphics"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="graphics"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_events" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_murka" path="../../../JUCE_Modules"/>
+        <MODULEPATH id="juce_opengl" path="../../../JUCE_7.0.3/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../../JUCE_7.0.3/modules"/>
+      </MODULEPATHS>
+    </VS2017>
+  </EXPORTFORMATS>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_murka" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+</JUCERPROJECT>
